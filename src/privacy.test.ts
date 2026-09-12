@@ -10,12 +10,15 @@ beforeAll(async () => {
   await $`bun build ./index.html --outdir dist --minify`.cwd(rootDir).quiet()
 })
 
-// Matches src=/href=/url()/import() referencing an absolute or protocol-relative
-// URL, e.g. src="https://..." or url(//cdn...). Excludes XML namespace URIs
-// (e.g. xmlns="http://www.w3.org/2000/svg"), which are not network requests.
-const EXTERNAL_REFERENCE =
-  /\b(?:src|href)\s*=\s*["'](https?:)?\/\/[^"']+["']|url\(\s*["']?(https?:)?\/\/[^)"']+["']?\s*\)|\bimport\(\s*["'](https?:)?\/\/[^"']+["']\s*\)/g
-const XML_NAMESPACE = /xmlns(:\w+)?\s*=\s*["'](https?:)?\/\//
+// Documentation hosts allowed for user-initiated navigation links, per the app-shell spec.
+const ALLOWED_HOSTS = new Set(['datatracker.ietf.org', 'www.rfc-editor.org', 'url.spec.whatwg.org'])
+
+const ABSOLUTE_URL = /\bhttps?:\/\/([^/"'\s)<>]+)/g
+// Resource-loading positions only: src=/href=/href:/url()/import(), including JSX-compiled
+// object-property form (href:"...") that plain attribute regexes miss.
+const PROTOCOL_RELATIVE_RESOURCE =
+  /\b(?:src|href)\s*[:=]\s*["']\/\/[^"']+["']|url\(\s*["']?\/\/[^)"']+["']?\s*\)|\bimport\(\s*["']\/\/[^"']+["']\s*\)/g
+const XML_NAMESPACE_HOST = 'www.w3.org'
 
 function walk(dir: string): string[] {
   return readdirSync(dir).flatMap((name) => {
@@ -24,16 +27,30 @@ function walk(dir: string): string[] {
   })
 }
 
-describe('privacy: no external references in build output', () => {
-  test('dist contains no absolute or protocol-relative resource URLs', () => {
+describe('privacy: build output references only allowlisted external hosts', () => {
+  test('every absolute http(s) URL points at an allowlisted documentation host or an xmlns', () => {
     const files = walk(distDir).filter((f) => /\.(html|js|css)$/.test(f))
     expect(files.length).toBeGreaterThan(0)
 
     const violations: string[] = []
     for (const file of files) {
       const content = readFileSync(file, 'utf8')
-      for (const match of content.matchAll(EXTERNAL_REFERENCE)) {
-        if (XML_NAMESPACE.test(match[0])) continue
+      for (const match of content.matchAll(ABSOLUTE_URL)) {
+        const host = match[1]
+        if (host === XML_NAMESPACE_HOST || ALLOWED_HOSTS.has(host)) continue
+        violations.push(`${file}: ${match[0]}`)
+      }
+    }
+
+    expect(violations).toEqual([])
+  })
+
+  test('no protocol-relative resource references', () => {
+    const files = walk(distDir).filter((f) => /\.(html|js|css)$/.test(f))
+    const violations: string[] = []
+    for (const file of files) {
+      const content = readFileSync(file, 'utf8')
+      for (const match of content.matchAll(PROTOCOL_RELATIVE_RESOURCE)) {
         violations.push(`${file}: ${match[0]}`)
       }
     }

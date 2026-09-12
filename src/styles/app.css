@@ -1,0 +1,190 @@
+/* Base typography: monospace everywhere, no web fonts. */
+body {
+  font-family: var(--pico-font-family-monospace);
+  padding: 1rem;
+}
+
+:root {
+  /* Text-on-chip color for a filled colored button/pill. Deliberately not
+     --pico-background-color: Pico's own button rule locally redefines that variable to its
+     primary color, so reusing it here would silently resolve to Pico blue instead of the
+     page background. */
+  --chip-fg: #fff;
+  /* Real body text color, for use inside <button>: Pico's button rule locally redefines
+     --pico-color to its primary-inverse (button label) color, so var(--pico-color) inside
+     a button resolves to that, not the page's actual ink color. */
+  --ink: #373c44;
+
+  --part-scheme: #9d1750;
+  --part-username: #8a4b00;
+  --part-password: #7a5300;
+  --part-host: #0d6e2e;
+  --part-port: #006d75;
+  --part-path: #0b5fae;
+  --part-query: #5b3ea8;
+  --part-fragment: #8a2b8a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --chip-fg: rgb(19, 22.5, 30.5);
+    --ink: #c2c7d0;
+
+    --part-scheme: #ff8fb3;
+    --part-username: #e8a94a;
+    --part-password: #d9c24a;
+    --part-host: #5fd685;
+    --part-port: #4fd3d9;
+    --part-path: #7cb3ff;
+    --part-query: #c3a6ff;
+    --part-fragment: #e58fe5;
+  }
+}
+
+/* Pico ships no "danger" button variant. Any .outline button also marked .danger gets a
+   hover/focus warning accent, reusing Pico's own semantic --pico-del-color token. This sets
+   the final color/border-color properties rather than Pico's --pico-color/--pico-border-color
+   variables: every Pico variant and state (.secondary, .contrast, :hover, :focus, ...) only
+   ever reassigns those variables, and the properties themselves are declared exactly once,
+   in one low-specificity base rule, so overriding them directly avoids competing with Pico's
+   own hover rule on specificity at all (which would otherwise tie, and tie-breaks depend on
+   cascade order that differs between `bun run dev`, which serves each imported stylesheet as
+   its own <link>, and the production build, which concatenates them). */
+.outline.danger:is(:hover, :focus) {
+  color: var(--pico-del-color);
+  border-color: var(--pico-del-color);
+}
+
+.summary {
+  font-size: 1.1rem;
+}
+
+.browser-line {
+  opacity: 0.85;
+}
+
+.browser-line.invalid {
+  color: var(--pico-del-color);
+}
+
+.input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.input-row button {
+  width: auto;
+  flex-shrink: 0;
+  min-height: 4.5em;
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.url-input {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.url-input-mirror,
+.url-input-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 4.5em;
+  margin: 0;
+  padding: 0.75em 1em;
+  border: var(--pico-border-width) solid var(--pico-form-element-border-color);
+  border-radius: var(--pico-border-radius);
+  font: inherit;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.url-input-mirror {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--pico-color);
+}
+
+.url-input-mirror span.active {
+  outline: 2px solid currentColor;
+  border-radius: 2px;
+}
+
+.url-input-textarea {
+  position: relative;
+  resize: vertical;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--pico-color);
+}
+
+.part-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin: 0.75em 0;
+}
+
+.part-labels button {
+  width: auto;
+  margin: 0;
+  padding: 0.35em 0.8em;
+  border: var(--pico-border-width) solid var(--part-color);
+  border-radius: var(--pico-border-radius);
+  background-color: var(--part-color);
+  color: var(--chip-fg);
+  font-weight: 500;
+  box-shadow: none;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.part-labels button:hover {
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--part-color) 50%, transparent);
+  transform: translateY(-1px);
+}
+
+.part-labels button:focus-visible {
+  box-shadow: none;
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.part-labels button[aria-selected="true"] {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--part-color) 45%, transparent);
+  font-weight: 700;
+}
+
+.part-labels button.part-absent {
+  background-color: transparent;
+  color: var(--part-color);
+  border-style: dashed;
+}
+
+.part-labels button.part-absent:hover {
+  background-color: color-mix(in srgb, var(--part-color) 14%, transparent);
+  box-shadow: none;
+  transform: none;
+}
+
+.query-table [role="group"] {
+  margin-bottom: 0;
+}
+
+.query-table .no-value {
+  opacity: 0.6;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.part-reference table {
+  font-size: 0.9rem;
+}
