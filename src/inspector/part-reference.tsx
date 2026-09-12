@@ -9,7 +9,7 @@ export function PartReference() {
   const info = PARTS[name]
 
   return (
-    <div class="part-reference">
+    <section class="part-reference" aria-label={`${info.label} reference`}>
       <p>{info.explanation}</p>
       <table>
         <thead>
@@ -49,6 +49,6 @@ export function PartReference() {
           </>
         )}
       </p>
-    </div>
+    </section>
   )
 }

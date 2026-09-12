@@ -18,6 +18,7 @@ function Summary() {
 
 function CopyButton() {
   const [label, setLabel] = useState('Copy')
+  const [fallback, setFallback] = useState('')
 
   async function onClick() {
     try {
@@ -25,15 +26,25 @@ function CopyButton() {
       setLabel('Copied')
     } catch {
       inputEl.current?.select()
-      setLabel('Press Ctrl+C to copy')
+      setFallback(
+        'Clipboard access is unavailable. The URL is selected — copy it with your keyboard.',
+      )
     }
-    setTimeout(() => setLabel('Copy'), 1500)
+    setTimeout(() => {
+      setLabel('Copy')
+      setFallback('')
+    }, 1500)
   }
 
   return (
-    <button type="button" onClick={onClick}>
-      {label}
-    </button>
+    <>
+      <button type="button" onClick={onClick}>
+        {label}
+      </button>
+      <p role="status" class="visually-hidden">
+        {fallback}
+      </p>
+    </>
   )
 }
 

@@ -19,7 +19,7 @@ export function PartEditor() {
   }
 
   return (
-    <div class="part-editor">
+    <section class="part-editor" aria-label={`${info.label} editor`}>
       <label>
         {info.label}
         <input
@@ -29,6 +29,6 @@ export function PartEditor() {
           placeholder={`(no ${info.label.toLowerCase()})`}
         />
       </label>
-    </div>
+    </section>
   )
 }

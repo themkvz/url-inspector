@@ -55,6 +55,27 @@ body {
   border-color: var(--pico-del-color);
 }
 
+/* Standard clip-rect pattern: content stays in the accessibility tree but is not rendered.
+   Pico ships no visually-hidden utility. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Pico only dims [disabled] (which also drops it from the tab order); mirror the same
+   opacity for [aria-disabled="true"] buttons kept focusable at list boundaries. Pico already
+   sets cursor: not-allowed for [aria-disabled="true"]. */
+[aria-disabled="true"] {
+  opacity: 0.5;
+}
+
 .summary {
   font-size: 1.1rem;
 }
@@ -158,7 +179,7 @@ body {
   outline-offset: 2px;
 }
 
-.part-labels button[aria-selected="true"] {
+.part-labels button[aria-pressed="true"] {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--part-color) 45%, transparent);
   font-weight: 700;
 }
@@ -175,12 +196,43 @@ body {
   transform: none;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .part-labels button {
+    transition: none;
+  }
+
+  .part-labels button:hover {
+    transform: none;
+  }
+}
+
+/* Under forced-colors, the UA overrides the transparent textarea's color to a real system
+   color, so the URL would render twice: once in system ink, once through the mirror (whose
+   per-part colors are themselves overridden to system colors and so carry no information in
+   this mode anyway). */
+@media (forced-colors: active) {
+  .url-input-mirror {
+    display: none;
+  }
+
+  .url-input-textarea {
+    color: CanvasText;
+  }
+}
+
+.query-table {
+  display: block;
+  overflow-x: auto;
+}
+
 .query-table [role="group"] {
   margin-bottom: 0;
 }
 
 .query-table .no-value {
-  opacity: 0.6;
+  /* No opacity dimming: Pico's placeholder color is already only ~5:1 against the form
+     background, so any further dimming drops it below the 4.5:1 text minimum. Italics alone
+     carries the distinction. */
   font-style: italic;
   white-space: nowrap;
 }

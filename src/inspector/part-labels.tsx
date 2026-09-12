@@ -12,7 +12,7 @@ export function PartLabels() {
   const p = parts.value
 
   return (
-    <div class="part-labels" role="tablist" aria-label="URL parts">
+    <fieldset class="part-labels" aria-label="URL parts">
       {PART_ORDER.map((name) => {
         const info = PARTS[name]
         const present = isPresent(name, p)
@@ -27,8 +27,7 @@ export function PartLabels() {
           <button
             key={name}
             type="button"
-            role="tab"
-            aria-selected={activePart.value === name}
+            aria-pressed={activePart.value === name}
             data-part={name}
             class={present ? undefined : 'part-absent'}
             style={{ '--part-color': partColor(name) }}
@@ -41,9 +40,10 @@ export function PartLabels() {
             onMouseLeave={onUnhover}
           >
             {info.label}
+            {!present && <span class="visually-hidden"> (not present)</span>}
           </button>
         )
       })}
-    </div>
+    </fieldset>
   )
 }
