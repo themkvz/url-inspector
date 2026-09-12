@@ -32,6 +32,17 @@ This uses [Cloudflare Pages Direct Upload](https://developers.cloudflare.com/pag
 with the pinned `wrangler` dev dependency. `wrangler.jsonc` supplies the Pages project name and `dist/`
 output directory; it contains no credentials, bindings, or variables.
 
+### Versioning
+
+Use Bun to bump the release version from a clean working tree. It updates `package.json` and creates a
+Git tag:
+
+```sh
+bun pm version patch # 0.1.0 → 0.1.1
+bun pm version minor # 0.1.0 → 0.2.0
+bun pm version major # 0.1.0 → 1.0.0
+```
+
 ### First deployment
 
 After verifying and building the intended revision:

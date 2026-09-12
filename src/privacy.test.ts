@@ -18,6 +18,7 @@ const OPENPANEL_HOST = 'openpanel.themkvz.com'
 const OPENPANEL_API_URL = `https://${OPENPANEL_HOST}/api`
 const OPENPANEL_SCRIPT_URL = `https://${OPENPANEL_HOST}/op1.js`
 const OPENPANEL_CLIENT_ID = '2e6568f4-b5bc-46b9-bf0b-64c63e9f7263'
+const APP_VERSION = JSON.parse(readFileSync(join(rootDir, 'package.json'), 'utf8')).version
 const OPENPANEL_EVENTS = [
   'url_copied',
   'example_loaded',
@@ -87,8 +88,8 @@ describe('privacy: build output references only allowlisted hosts', () => {
     expect(index).toContain(`<script src="${OPENPANEL_SCRIPT_URL}" defer async></script>`)
     expect(index).toContain("window.op('setGlobalProperties'")
     expect(index).toContain("app: 'url-inspector'")
+    expect(index).toContain(`app_version: '${APP_VERSION}'`)
     expect(index).toContain("? 'production' : 'development'")
-    expect(index).not.toContain('app_version')
 
     for (const event of OPENPANEL_EVENTS) {
       expect(build).toContain(event)
