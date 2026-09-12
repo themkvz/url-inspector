@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "bun ./index.html ./faq.html",
     "deploy": "wrangler pages deploy",
-    "build": "bun run scripts/build.tsx",
+    "build": "bun install && bun run scripts/build.tsx",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "check": "biome check . && bun run typecheck"
@@ -21,7 +21,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.13",
-    "bun": "1.4.2",
     "@happy-dom/global-registrator": "^20.14.5",
     "@types/bun": "^1.4.2",
     "axe-core": "^4.13.0",
