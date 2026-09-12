@@ -14,5 +14,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "index.html"]
+  "include": ["src", "scripts", "index.html"]
 }

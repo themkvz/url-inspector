@@ -1,7 +1,7 @@
 import '@picocss/pico/css/pico.blue.min.css'
 import '@/styles/app.css'
-import { render } from 'preact'
+import { hydrate } from 'preact'
 import { App } from '@/app'
 
 // biome-ignore lint/style/noNonNullAssertion: index.html always has #app
-render(<App />, document.getElementById('app')!)
+hydrate(<App />, document.getElementById('app')!)

@@ -10,7 +10,10 @@ export function App() {
   return (
     <>
       <header class={'container'}>
-        <h1>URL Inspector</h1>
+        <hgroup>
+          <h1>URL Inspector</h1>
+          <p class="tagline">Break down, edit, and rebuild URLs without losing detail.</p>
+        </hgroup>
       </header>
 
       <main class={'container'}>
