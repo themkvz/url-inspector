@@ -38,7 +38,7 @@ function CopyButton() {
 
   return (
     <>
-      <button type="button" onClick={onClick}>
+      <button type="button" data-track="url_copied" onClick={onClick}>
         {label}
       </button>
       <p role="status" class="visually-hidden">
@@ -52,6 +52,7 @@ function ExampleButton() {
   return (
     <button
       type="button"
+      data-track="example_loaded"
       onClick={() => {
         raw.value = EXAMPLE_URL
         activePart.value = null

@@ -69,6 +69,10 @@
         trackOutgoingLinks: true,
         trackAttributes: true,
       })
+      window.op('setGlobalProperties', {
+        app: 'url-inspector',
+        environment: window.location.hostname === 'url.themkvz.com' ? 'production' : 'development',
+      })
     </script>
     <script src="https://openpanel.themkvz.com/op1.js" defer async></script>
   </head>

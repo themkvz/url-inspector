@@ -176,6 +176,8 @@ export function QueryTable() {
                     <button
                       type="button"
                       class="outline secondary"
+                      data-track={isFirst ? undefined : 'query_parameter_moved'}
+                      data-direction={isFirst ? undefined : 'up'}
                       ref={(el) => {
                         if (el) upButtonRefs.current.set(i, el)
                         else upButtonRefs.current.delete(i)
@@ -190,6 +192,8 @@ export function QueryTable() {
                     <button
                       type="button"
                       class="outline secondary"
+                      data-track={isLast ? undefined : 'query_parameter_moved'}
+                      data-direction={isLast ? undefined : 'down'}
                       ref={(el) => {
                         if (el) downButtonRefs.current.set(i, el)
                         else downButtonRefs.current.delete(i)
@@ -204,6 +208,7 @@ export function QueryTable() {
                     <button
                       type="button"
                       class="outline secondary danger"
+                      data-track="query_parameter_removed"
                       ref={(el) => {
                         if (el) removeButtonRefs.current.set(i, el)
                         else removeButtonRefs.current.delete(i)
@@ -226,6 +231,7 @@ export function QueryTable() {
               <button
                 type="button"
                 class="outline"
+                data-track="query_parameter_added"
                 ref={addButtonRef}
                 onClick={() => update((p) => addParam(p))}
               >

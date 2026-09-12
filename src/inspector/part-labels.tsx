@@ -28,6 +28,7 @@ export function PartLabels() {
             key={name}
             type="button"
             aria-pressed={activePart.value === name}
+            data-track="url_part_opened"
             data-part={name}
             class={present ? undefined : 'part-absent'}
             style={{ '--part-color': partColor(name) }}
