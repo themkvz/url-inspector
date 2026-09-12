@@ -88,6 +88,12 @@ body {
   color: var(--pico-del-color);
 }
 
+/* The status line renders unconditionally so the live region exists before it has anything to
+   say; collapse it while silent so it reserves no space. */
+.browser-line:empty {
+  margin: 0;
+}
+
 .input-row {
   display: flex;
   align-items: flex-start;
@@ -220,8 +226,10 @@ body {
   }
 }
 
-.query-table {
-  display: block;
+/* The horizontal scroll lives on the wrapper, never on the <table> itself: a table with a
+   non-`table` display is exposed as a generic container, which drops the Key/Value column
+   headers' association with their cells. */
+.query-editor {
   overflow-x: auto;
 }
 

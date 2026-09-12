@@ -25,6 +25,8 @@ exactly once and legibly in the system-assigned colors.
 - **THEN** the URL text is shown once, in system colors, with no duplicated or invisible copy, and
   every control keeps a visible boundary and focus indicator
 
+## ADDED Requirements
+
 ### Requirement: Legible contrast in both themes
 All text and meaningful non-text presentation SHALL meet WCAG 2.1 AA contrast against the background
 it is drawn on, in both the light and dark themes: at least 4.5:1 for body text, at least 3:1 for

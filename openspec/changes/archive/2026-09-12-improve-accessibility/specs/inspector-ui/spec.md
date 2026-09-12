@@ -106,15 +106,23 @@ indicator SHALL remain visible against its own background and against the adjace
 ## ADDED Requirements
 
 ### Requirement: Announced status changes
-Status the system reports on its own — the browser-normalized form, the browser-rejects-this-URL
-message, and the outcome of the Copy action — SHALL be exposed to assistive technology as polite
-status updates, so a user who is not looking at that part of the screen is told about it. These
-updates SHALL NOT steal focus and SHALL NOT announce on every keystroke of unrelated editing.
+Status the system reports on its own — the browser-rejects-this-URL message and the outcome of the
+Copy action — SHALL be exposed to assistive technology as polite status updates, so a user who is
+not looking at that part of the screen is told about it. These updates SHALL NOT steal focus and
+SHALL NOT announce on every keystroke of unrelated editing.
+
+The browser-normalized form SHALL NOT be announced. Unlike the messages above it is derived from the
+URL text and changes on every keystroke, so announcing it would re-read the whole URL character by
+character; it is presented as ordinary text, for the same reason the plain-language summary is.
 
 #### Scenario: Invalid URL is announced
 - **WHEN** the user's edit makes the URL one a browser rejects
 - **THEN** the rejection message is announced politely and keyboard focus stays where the user left
   it
+
+#### Scenario: Normalized form is shown but not announced
+- **WHEN** the user types a URL that a browser normalizes, one character at a time
+- **THEN** the normalized form is visible as ordinary text and is not announced as a status update
 
 #### Scenario: Copy result is announced
 - **WHEN** the user activates Copy and the clipboard write succeeds

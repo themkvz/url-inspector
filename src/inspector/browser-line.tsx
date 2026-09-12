@@ -2,19 +2,19 @@ import { diagnostics, raw } from './store'
 
 export function BrowserLine() {
   const d = diagnostics.value
-  const invalid = raw.value !== '' && !d.valid
-  const message =
-    raw.value === ''
-      ? ''
-      : !d.valid
-        ? 'A browser rejects this URL.'
-        : d.browserForm
-          ? `Browser sends: ${d.browserForm}`
-          : ''
+  const empty = raw.value === ''
 
   return (
-    <p role="status" class={invalid ? 'browser-line invalid' : 'browser-line'}>
-      {message}
-    </p>
+    <>
+      {/* Only the fixed rejection sentence is live. The normalized form is deliberately left out
+          of the status region: it recomputes on every keystroke, so announcing it would re-read
+          the whole URL character by character — the same reason the summary is not live. */}
+      <p role="status" class="browser-line invalid">
+        {empty || d.valid ? '' : 'A browser rejects this URL.'}
+      </p>
+      {!empty && d.valid && d.browserForm ? (
+        <p class="browser-line">Browser sends: {d.browserForm}</p>
+      ) : null}
+    </>
   )
 }

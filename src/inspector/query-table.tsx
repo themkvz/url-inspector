@@ -40,9 +40,26 @@ export function QueryTable() {
     })
   }
 
+  // decodedRows keys on row index, so any edit that shifts indices has to carry the flags with
+  // their rows — otherwise a neighbour inherits a decoded view the user never asked for, and
+  // typing into it re-encodes from the wrong baseline. `null` drops the flag.
+  function remapDecoded(move: (i: number) => number | null) {
+    setDecodedRows((prev) => {
+      const next = new Set<number>()
+
+      for (const i of prev) {
+        const to = move(i)
+        if (to !== null) next.add(to)
+      }
+
+      return next
+    })
+  }
+
   function handleRemoveParam(i: number) {
     const wasLast = i === query.length - 1
     update((p) => removeParam(p, i))
+    remapDecoded((j) => (j === i ? null : j > i ? j - 1 : j))
     setPendingFocus(wasLast ? { kind: 'add' } : { kind: 'remove', index: i })
   }
 
@@ -50,6 +67,7 @@ export function QueryTable() {
     const target = dir === 'up' ? i - 1 : i + 1
     if (target < 0 || target >= query.length) return
     update((p) => moveParam(p, i, dir))
+    remapDecoded((j) => (j === i ? target : j === target ? i : j))
     setPendingFocus({ kind: 'move', index: target, dir })
   }
 
@@ -61,7 +79,7 @@ export function QueryTable() {
   }
 
   return (
-    <section aria-label="Query editor">
+    <section class="query-editor" aria-label="Query editor">
       <table class="query-table">
         <thead>
           <tr>
