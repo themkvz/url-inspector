@@ -4,6 +4,20 @@ body {
   padding: 1rem;
 }
 
+/* Sticky footer: header/main/footer are #app's children (not body's, since #app is the
+   hydration root), so the flex column lives there rather than on Pico's `body > footer`
+   convention. main grows to fill any leftover space, pushing the footer to the bottom of the
+   viewport even when the page's content is short. */
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 2rem);
+}
+
+#app > main {
+  flex: 1;
+}
+
 :root {
   /* Text-on-chip color for a filled colored button/pill. Deliberately not
      --pico-background-color: Pico's own button rule locally redefines that variable to its

@@ -8,74 +8,85 @@ with the app's canonical origin.
 ## Requirements
 
 ### Requirement: Indexable markup without JavaScript
-The production `index.html` SHALL contain the application's initial rendered markup — the heading, the
-description line, and the inspector UI in its empty state — as static HTML, so a crawler that does not
-execute JavaScript sees the page content. The client bundle SHALL attach to that existing markup rather
-than discarding and re-creating it.
+Each top-level page in the production build (currently the home page and the FAQ page) SHALL contain
+that page's initial rendered markup as static HTML, so a crawler that does not execute JavaScript sees
+the page's content. The client bundle SHALL attach to that existing markup rather than discarding and
+re-creating it.
 
 #### Scenario: Build output contains rendered content
-- **WHEN** the production `index.html` is inspected as text
-- **THEN** it contains the `h1` text, the description sentence, and the inspector's controls, and the
-  application mount element is not empty
+- **WHEN** a top-level page's production HTML is inspected as text
+- **THEN** it contains that page's rendered content, and the application mount element is not empty
 
 #### Scenario: Page renders with scripting disabled
-- **WHEN** the built page is loaded in a browser with JavaScript disabled
-- **THEN** the heading, description, and inspector UI are visible
+- **WHEN** a built page is loaded in a browser with JavaScript disabled
+- **THEN** that page's content is visible
 
 #### Scenario: Client attaches to prerendered markup
-- **WHEN** the page loads with JavaScript enabled
+- **WHEN** a page loads with JavaScript enabled
 - **THEN** the content is not duplicated, the visible markup does not flash or change on mount, and the
   application is interactive
 
 ### Requirement: Canonical identity metadata
-The document SHALL declare its language, a descriptive `title` and `meta description`, a canonical link
-pointing at `https://url.themkvz.com/`, and crawler directives permitting indexing and link following.
+Each top-level page's document SHALL declare its language, a descriptive `title` and `meta description`
+distinct to that page, a canonical link pointing at that page's own URL under `https://url.themkvz.com/`,
+and crawler directives permitting indexing and link following.
 
 #### Scenario: Head metadata present
-- **WHEN** the production `index.html` head is inspected
+- **WHEN** a top-level page's production head is inspected
 - **THEN** the `html` element has `lang="en"`, there is exactly one non-empty `title`, exactly one
   `meta name="description"` whose content is between 50 and 160 characters, and exactly one
-  `link rel="canonical"` with `href="https://url.themkvz.com/"`
+  `link rel="canonical"` with `href` equal to that page's own canonical URL
+
+#### Scenario: Every page has a distinct identity
+- **WHEN** the title and canonical URL of every top-level page are compared
+- **THEN** no two pages share the same title or the same canonical URL
 
 #### Scenario: Indexing permitted
-- **WHEN** the robots directives are inspected
+- **WHEN** the robots directives of any top-level page are inspected
 - **THEN** they permit indexing and link following, and no directive forbids indexing
 
 ### Requirement: Social sharing preview
-The document SHALL provide Open Graph and Twitter card metadata so shared links render a titled,
-described preview with an image.
+Each top-level page's document SHALL provide Open Graph and Twitter card metadata so shared links
+render a titled, described preview with an image. Pages MAY share the same `og:image`.
 
 #### Scenario: Open Graph tags present
-- **WHEN** the production `index.html` head is inspected
-- **THEN** it declares `og:type`, `og:title`, `og:description`, `og:site_name`, `og:url` equal to the
-  canonical URL, and `og:image` as an absolute URL on the canonical origin, with `og:image:width`,
-  `og:image:height`, and `og:image:alt`
+- **WHEN** a top-level page's production head is inspected
+- **THEN** it declares `og:type`, `og:title`, `og:description`, `og:site_name`, `og:url` equal to that
+  page's own canonical URL, and `og:image` as an absolute URL on the canonical origin, with
+  `og:image:width`, `og:image:height`, and `og:image:alt`
 
 #### Scenario: Twitter card tags present
-- **WHEN** the Twitter metadata is inspected
+- **WHEN** a page's Twitter metadata is inspected
 - **THEN** `twitter:card` is `summary_large_image` and the card's title, description, and image are
-  present and consistent with the Open Graph values
+  present and consistent with that page's Open Graph values
 
 #### Scenario: Preview image exists at the declared path
-- **WHEN** the path referenced by `og:image` is resolved against the build output
+- **WHEN** the path referenced by any page's `og:image` is resolved against the build output
 - **THEN** a 1200×630 image file exists there
 
 ### Requirement: Structured data
-The document SHALL embed JSON-LD structured data describing the tool as a `WebApplication`, consistent
-with the page's title, description, and canonical URL.
+Each top-level page's document SHALL embed JSON-LD structured data appropriate to that page,
+consistent with the page's title, description, and canonical URL. The home page's structured data SHALL
+declare `@type` `WebApplication`.
 
 #### Scenario: JSON-LD block is valid and consistent
-- **WHEN** the `application/ld+json` block in the production `index.html` is parsed
-- **THEN** it is valid JSON declaring `@context` `https://schema.org`, `@type` `WebApplication`, and a
-  `name`, `description`, and `url` matching the page's title, meta description, and canonical URL
+- **WHEN** the `application/ld+json` block on any top-level page is parsed
+- **THEN** it is valid JSON declaring `@context` `https://schema.org` and a `url` matching that page's
+  own canonical URL, consistent with its title and meta description where the type declares those
+  properties
+
+#### Scenario: Home page declares WebApplication
+- **WHEN** the home page's JSON-LD block is parsed
+- **THEN** it declares `@type` `WebApplication` with a `name`, `description`, and `url` matching the
+  page's title, meta description, and canonical URL
 
 #### Scenario: No fabricated claims
-- **WHEN** the structured data is inspected
+- **WHEN** any page's structured data is inspected
 - **THEN** it contains no ratings, review counts, or other claims that are not true of the shipped app
 
 ### Requirement: Crawl directives
 The build output SHALL include a `robots.txt` that allows crawling and points at a `sitemap.xml`, and a
-`sitemap.xml` listing the site's canonical URL.
+`sitemap.xml` listing every top-level page's canonical URL.
 
 #### Scenario: robots.txt served
 - **WHEN** `/robots.txt` is requested from the build output
@@ -83,14 +94,15 @@ The build output SHALL include a `robots.txt` that allows crawling and points at
 
 #### Scenario: sitemap.xml served
 - **WHEN** `/sitemap.xml` is requested from the build output
-- **THEN** it is a valid urlset containing exactly the canonical URL `https://url.themkvz.com/`
+- **THEN** it is a valid urlset containing exactly one entry per top-level page, each matching that
+  page's own canonical URL, and no others
 
 ### Requirement: Icons and installability metadata
 The build output SHALL provide self-hosted icons for browser and mobile surfaces and a web app manifest,
-all referenced from the document head.
+shared across every top-level page and referenced from each page's head.
 
 #### Scenario: Icons present and referenced
-- **WHEN** the production `index.html` head and build output are inspected
+- **WHEN** any top-level page's production head and the build output are inspected
 - **THEN** an SVG icon, a `favicon.ico`, and an apple-touch-icon are each referenced by a `link` element
   and exist in the build output
 
@@ -100,7 +112,7 @@ all referenced from the document head.
   `background_color`, and at least one icon, and every icon it lists exists in the build output
 
 #### Scenario: Theme color declared
-- **WHEN** the head is inspected
+- **WHEN** any top-level page's head is inspected
 - **THEN** a `meta name="theme-color"` is present and matches the manifest's `theme_color`
 
 ### Requirement: Discoverability assets are self-hosted

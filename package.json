@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun ./index.html",
+    "dev": "bun ./index.html ./faq.html",
     "deploy": "wrangler pages deploy",
     "build": "bun run scripts/build.tsx",
     "test": "bun test",

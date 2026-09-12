@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Answers to common questions about URL syntax, encoding, query parameters, and how URL Inspector works."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="canonical" href="https://url.themkvz.com/faq" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="FAQ - URL Inspector" />
+    <meta
+      property="og:description"
+      content="Answers to common questions about URL syntax, encoding, query parameters, and how URL Inspector works."
+    />
+    <meta property="og:site_name" content="URL Inspector" />
+    <meta property="og:url" content="https://url.themkvz.com/faq" />
+    <meta property="og:image" content="https://url.themkvz.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="URL Inspector" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="FAQ - URL Inspector" />
+    <meta
+      name="twitter:description"
+      content="Answers to common questions about URL syntax, encoding, query parameters, and how URL Inspector works."
+    />
+    <meta name="twitter:image" content="https://url.themkvz.com/og.png" />
+    <link rel="icon" href="./public/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./public/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="./public/apple-touch-icon.png" />
+    <link rel="manifest" href="./public/site.webmanifest" />
+    <title>FAQ - URL Inspector</title>
+    <script type="application/ld+json">
+      __FAQ_JSONLD__
+    </script>
+    <script>
+      window.op = window.op || (() => {
+        const queue = []
+        const op = (...args) => {
+          if (args.length) queue.push(args)
+        }
+        return new Proxy(op, {
+          get: (_target, property) =>
+            property === 'q'
+              ? queue
+              : (...args) => {
+                  queue.push([property, ...args])
+                },
+          has: (_target, property) => property === 'q',
+        })
+      })()
+      window.op('init', {
+        apiUrl: 'https://openpanel.themkvz.com/api',
+        clientId: '2e6568f4-b5bc-46b9-bf0b-64c63e9f7263',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      })
+      window.op('setGlobalProperties', {
+        app: 'url-inspector',
+        app_version: '__APP_VERSION__',
+        environment: window.location.hostname === 'url.themkvz.com' ? 'production' : 'development',
+      })
+    </script>
+    <script src="https://openpanel.themkvz.com/op1.js" defer async></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./src/main-faq.tsx"></script>
+  </body>
+</html>
