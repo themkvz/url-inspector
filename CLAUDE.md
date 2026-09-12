@@ -8,9 +8,9 @@ URL Inspector — break down, edit, and rebuild URLs without losing the details.
 
 Hard constraints (apply to every change):
 
-- **Minimal, bundled, self-hosted dependencies.** No dependency-free requirement, but every runtime dependency must be bundled into the static build (no CDN loads) and a new one needs explicit user approval. Prefer platform APIs (`URL`, `URLSearchParams`, native form controls, CSS) first.
+- **Minimal, bundled, self-hosted dependencies.** No dependency-free requirement, but every runtime dependency must be bundled into the static build and a new one needs explicit user approval. The approved exception is the self-hosted OpenPanel SDK at `https://openpanel.themkvz.com/op1.js`. Prefer platform APIs (`URL`, `URLSearchParams`, native form controls, CSS) first.
 - **Client-only.** Everything runs in the browser. No backend, no network calls made on the user's URLs.
-- **Anonymous.** No analytics, tracking, cookies, accounts, third-party scripts/fonts/CDNs, or telemetry. Inspected URLs never leave the device.
+- **Anonymous.** OpenPanel anonymously records screen views, outgoing links, and declarative attributes through `https://openpanel.themkvz.com/api`; session replay is off. It must not set cookies or persistent identifiers, and inspected URLs never leave the device.
 - **Minimal.** Smallest implementation that satisfies the spec.
 - **Lossless.** Round-tripping a URL (parse → edit → rebuild) must preserve details: encoding, parameter order, duplicate keys, empty values, fragments.
 
@@ -44,7 +44,7 @@ Bun is the single tool: package manager, dev server, bundler, and test runner.
 
 - `bun run dev` — dev server with HMR at `http://localhost:3000`.
 - `bun run build` — static production build to `dist/`.
-- `bun test` — runs tests, including the privacy check that scans `dist/` for absolute URLs outside the documentation-host allowlist and any protocol-relative resource references.
+- `bun test` — runs tests, including the privacy check that scans `dist/` for absolute URLs outside the documentation, canonical, identifier, and approved OpenPanel allowlists and any protocol-relative resource references.
 - `bun run check` — Biome check + `tsc --noEmit`.
 
 ## Workflow: OpenSpec (spec-driven development)

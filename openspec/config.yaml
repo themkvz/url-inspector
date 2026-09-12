@@ -4,10 +4,11 @@ context: |
   URL Inspector: break down, edit, and rebuild URLs without losing detail (encoding,
   param order, duplicate keys, empty values, fragments).
 
-  Constraints: client-only (no backend), anonymous (no analytics/tracking/cookies/
-  third-party CDNs), minimal, lossless round-tripping. Runtime dependencies must be
-  minimal, bundled into the static build, and self-hosted (no CDN); each new one
-  needs explicit user approval.
+  Constraints: client-only (no backend), anonymous OpenPanel analytics only
+  (no cookies, persistent identifiers, or session replay), minimal, lossless
+  round-tripping. Inspected URLs never leave the device. Runtime dependencies must
+  be minimal and bundled into the static build, except the self-hosted OpenPanel SDK
+  at https://openpanel.themkvz.com/op1.js; each new one needs explicit user approval.
 
   Stack: Bun (package manager, dev server, bundler, test runner), TypeScript strict,
   Preact + @preact/signals, Pico CSS, Biome (lint/format), lefthook (pre-commit).

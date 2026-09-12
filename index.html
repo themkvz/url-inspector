@@ -46,6 +46,31 @@
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
       }
     </script>
+    <script>
+      window.op = window.op || (() => {
+        const queue = []
+        const op = (...args) => {
+          if (args.length) queue.push(args)
+        }
+        return new Proxy(op, {
+          get: (_target, property) =>
+            property === 'q'
+              ? queue
+              : (...args) => {
+                  queue.push([property, ...args])
+                },
+          has: (_target, property) => property === 'q',
+        })
+      })()
+      window.op('init', {
+        apiUrl: 'https://openpanel.themkvz.com/api',
+        clientId: '2e6568f4-b5bc-46b9-bf0b-64c63e9f7263',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      })
+    </script>
+    <script src="https://openpanel.themkvz.com/op1.js" defer async></script>
   </head>
   <body>
     <div id="app"></div>

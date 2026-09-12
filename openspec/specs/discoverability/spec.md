@@ -114,4 +114,4 @@ from the application's own origin. Absolute URLs in metadata MUST only ever name
 
 #### Scenario: Loading the page fetches only same-origin resources
 - **WHEN** the built page is loaded with network inspection enabled
-- **THEN** every request, including icon and manifest requests, goes to the serving origin
+- **THEN** every icon, image, manifest, and stylesheet request goes to the serving origin

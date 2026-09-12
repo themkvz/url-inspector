@@ -14,12 +14,22 @@ beforeAll(async () => {
 const DOCUMENTATION_HOSTS = ['datatracker.ietf.org', 'www.rfc-editor.org', 'url.spec.whatwg.org']
 // The app's own canonical origin, named by self-referential discoverability metadata.
 const OWN_HOST = 'url.themkvz.com'
+const OPENPANEL_HOST = 'openpanel.themkvz.com'
+const OPENPANEL_API_URL = `https://${OPENPANEL_HOST}/api`
+const OPENPANEL_SCRIPT_URL = `https://${OPENPANEL_HOST}/op1.js`
+const OPENPANEL_CLIENT_ID = '2e6568f4-b5bc-46b9-bf0b-64c63e9f7263'
 // Hosts that only ever appear as identifiers and are never fetched: XML namespaces and the
 // JSON-LD @context vocabulary.
 const IDENTIFIER_HOSTS = ['www.w3.org', 'schema.org']
-const ALLOWED_HOSTS = new Set([...DOCUMENTATION_HOSTS, OWN_HOST, ...IDENTIFIER_HOSTS])
+const ALLOWED_HOSTS = new Set([
+  ...DOCUMENTATION_HOSTS,
+  OWN_HOST,
+  OPENPANEL_HOST,
+  ...IDENTIFIER_HOSTS,
+])
+const ANALYTICS_URLS = new Set([OPENPANEL_API_URL, OPENPANEL_SCRIPT_URL])
 
-const ABSOLUTE_URL = /\bhttps?:\/\/([^/"'\s)<>]+)/g
+const ABSOLUTE_URL = /\bhttps?:\/\/([^/"'\s)<>]+)(?:\/[^"'\s)<>]*)?/g
 // Resource-loading positions only: src=/href=/href:/url()/import(), including JSX-compiled
 // object-property form (href:"...") that plain attribute regexes miss.
 const PROTOCOL_RELATIVE_RESOURCE =
@@ -42,12 +52,27 @@ describe('privacy: build output references only allowlisted hosts', () => {
       const content = readFileSync(file, 'utf8')
       for (const match of content.matchAll(ABSOLUTE_URL)) {
         const host = match[1]
+        if (host === OPENPANEL_HOST && !ANALYTICS_URLS.has(match[0])) {
+          violations.push(`${file}: ${match[0]}`)
+          continue
+        }
         if (ALLOWED_HOSTS.has(host)) continue
         violations.push(`${file}: ${match[0]}`)
       }
     }
 
     expect(violations).toEqual([])
+  })
+
+  test('includes the configured self-hosted OpenPanel integration', () => {
+    const index = readFileSync(join(distDir, 'index.html'), 'utf8')
+
+    expect(index).toContain(`apiUrl: '${OPENPANEL_API_URL}'`)
+    expect(index).toContain(`clientId: '${OPENPANEL_CLIENT_ID}'`)
+    expect(index).toContain('trackScreenViews: true')
+    expect(index).toContain('trackOutgoingLinks: true')
+    expect(index).toContain('trackAttributes: true')
+    expect(index).toContain(`<script src="${OPENPANEL_SCRIPT_URL}" defer async></script>`)
   })
 
   test('no protocol-relative resource references', () => {

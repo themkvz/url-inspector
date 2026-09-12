@@ -1,6 +1,8 @@
 # URL Inspector
 
-Break down, edit, and rebuild URLs without losing detail. All inspection happens in the browser.
+Break down, edit, and rebuild URLs without losing detail. All inspection happens in the browser; entered
+URLs never leave the device. Anonymous screen-view, outgoing-link, and declarative attribute analytics
+are sent to the self-hosted OpenPanel instance at `openpanel.themkvz.com` without session replay.
 
 ## Requirements
 
@@ -73,7 +75,7 @@ bun run deploy
 
 Smoke-test `https://url.themkvz.com/`: it should return successfully, show the `URL Inspector` heading
 before interaction, load its static assets, and edit a URL normally. Browser network activity should be
-same-origin.
+same-origin except for `https://openpanel.themkvz.com/op1.js` and its `/api` event requests.
 
 To roll back, open the Pages deployment history, restore the last verified production deployment, and
 repeat the same smoke test.
