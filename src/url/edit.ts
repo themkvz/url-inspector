@@ -38,7 +38,10 @@ export function removeParam(parts: Parts, index: number): Parts {
 
   const query = parts.query.filter((_, i) => i !== index)
 
-  return { ...parts, query }
+  // An empty array isn't a stable state: it serializes to a bare "?", which re-tokenizes as a
+  // single empty-key, no-value param (an empty query string is one empty segment, not zero).
+  // Dropping the query mark entirely when nothing is left avoids that round-trip bounce-back.
+  return { ...parts, query: query.length === 0 ? null : query }
 }
 
 export function moveParam(parts: Parts, index: number, direction: 'up' | 'down'): Parts {

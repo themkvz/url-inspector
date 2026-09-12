@@ -99,6 +99,17 @@ suite('editing changes only the target substring', () => {
     expect(serialize(edited)).toBe('http://a/?q=1&q=2')
   })
 
+  test('removing the last query parameter drops the query mark entirely', () => {
+    const { parts } = tokenize('http://a.com/?x=1')
+    const edited = removeParam(parts, 0)
+    expect(edited.query).toBeNull()
+    expect(serialize(edited)).toBe('http://a.com/')
+
+    // The result must be stable: re-tokenizing it should not resurrect a phantom empty param.
+    const { parts: reparsed } = tokenize(serialize(edited))
+    expect(reparsed.query).toBeNull()
+  })
+
   test('setting an authority sub-part with no host gives it an empty host', () => {
     const { parts } = tokenize('mailto:a@b.c')
     const edited = setPart(parts, 'port', '8080')
