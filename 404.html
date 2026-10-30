@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="./public/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="./public/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="./public/apple-touch-icon.png" />
+    <link rel="manifest" href="./public/site.webmanifest" />
+    <link rel="stylesheet" href="./node_modules/@picocss/pico/css/pico.blue.min.css" />
+    <link rel="stylesheet" href="./src/styles/app.css" />
+    <title>Page not found - URL Inspector</title>
+    <script>
+      window.op = window.op || (() => {
+        const queue = []
+        const op = (...args) => {
+          if (args.length) queue.push(args)
+        }
+        return new Proxy(op, {
+          get: (_target, property) =>
+            property === 'q'
+              ? queue
+              : (...args) => {
+                  queue.push([property, ...args])
+                },
+          has: (_target, property) => property === 'q',
+        })
+      })()
+      window.op('init', {
+        apiUrl: 'https://openpanel.themkvz.com/api',
+        clientId: '2e6568f4-b5bc-46b9-bf0b-64c63e9f7263',
+        trackScreenViews: true,
+        trackOutgoingLinks: true,
+        trackAttributes: true,
+      })
+      window.op('setGlobalProperties', {
+        app: 'url-inspector',
+        app_version: '__APP_VERSION__',
+        environment: window.location.hostname === 'url.themkvz.com' ? 'production' : 'development',
+      })
+    </script>
+    <script src="https://openpanel.themkvz.com/op1.js" defer async></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>

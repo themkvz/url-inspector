@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, test } from 'bun:test'
+import { createHash } from 'node:crypto'
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { $ } from 'bun'
@@ -110,5 +111,22 @@ describe('privacy: build output references only allowlisted hosts', () => {
     }
 
     expect(violations).toEqual([])
+  })
+
+  test('the CSP allows exactly the inline scripts the pages carry', () => {
+    const headers = readFileSync(join(distDir, '_headers'), 'utf8')
+    const csp = headers.match(/Content-Security-Policy: (.+)/)?.[1] ?? ''
+    const allowed = [...csp.matchAll(/'sha256-([^']+)'/g)].map((match) => match[1])
+    const inline = walk(distDir)
+      .filter((file) => file.endsWith('.html'))
+      .flatMap((file) => [...readFileSync(file, 'utf8').matchAll(/<script>([\s\S]*?)<\/script>/g)])
+      .map(([, body = '']) => createHash('sha256').update(body).digest('base64'))
+
+    expect(inline.length).toBeGreaterThan(0)
+    expect(new Set(allowed)).toEqual(new Set(inline))
+    expect(csp).toContain(`script-src 'self'`)
+    expect(csp).toContain(`connect-src 'self' https://${OPENPANEL_HOST}`)
+    expect(csp).not.toContain("script-src 'self' 'unsafe-inline'")
+    expect(csp).toContain("frame-ancestors 'none'")
   })
 })

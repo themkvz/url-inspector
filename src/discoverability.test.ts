@@ -50,6 +50,20 @@ describe('discoverability', () => {
     expect(document.querySelector('button[type="button"]')).not.toBeNull()
   })
 
+  test('serves a noindex 404 page with a way back to the inspector', () => {
+    const window = new Window()
+    window.document.write(readFileSync(join(distDir, '404.html'), 'utf8'))
+    const document = window.document
+    expect(document.querySelectorAll('h1')).toHaveLength(1)
+    expect(document.querySelector('h2')?.textContent).toBe('Page not found')
+    expect(meta(document, 'meta[name="robots"]')).toBe('noindex')
+    expect(document.querySelector('link[rel="canonical"]')).toBeNull()
+    expect(document.querySelector('main a[href="/"]')).not.toBeNull()
+    for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
+      expect(link.getAttribute('href')).toMatch(/^\/[^/]/)
+    }
+  })
+
   test('prerenders the FAQ page with every question and answer', () => {
     const document = doc('faq.html')
     expect(document.querySelectorAll('h1')).toHaveLength(1)

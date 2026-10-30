@@ -1,7 +1,7 @@
 import type { ComponentChildren } from 'preact'
 
 type ShellProps = {
-  current: 'home' | 'faq'
+  current?: 'home' | 'faq'
   children: ComponentChildren
 }
 

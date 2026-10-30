@@ -86,7 +86,17 @@ bun run deploy
 
 Smoke-test `https://url.themkvz.com/`: it should return successfully, show the `URL Inspector` heading
 before interaction, load its static assets, and edit a URL normally. Browser network activity should be
-same-origin except for `https://openpanel.themkvz.com/op1.js` and its `/api` event requests.
+same-origin except for `https://openpanel.themkvz.com/op1.js` and its `/api` event requests, and the
+browser console should show no Content Security Policy violations.
+
+Check the response headers and the not-found status:
+
+```sh
+curl -sI https://url.themkvz.com/ | grep -iE '^(content-security-policy|x-content-type-options|referrer-policy):'
+curl -sI https://url.themkvz.com/missing/page | head -1 # HTTP/2 404
+```
+
+The first command should print all three headers. `dist/_headers` lists the expected values.
 
 To roll back, open the Pages deployment history, restore the last verified production deployment, and
 repeat the same smoke test.
