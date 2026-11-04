@@ -30,7 +30,8 @@ The production artifact is `dist/`.
 
 This uses [Cloudflare Pages Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/)
 with the pinned `wrangler` dev dependency. `wrangler.jsonc` supplies the Pages project name and `dist/`
-output directory; it contains no credentials, bindings, or variables.
+output directory, plus a non-secret `BUN_VERSION` variable that pins the Bun version; it contains no
+credentials or bindings.
 
 ### Versioning
 
@@ -103,3 +104,7 @@ repeat the same smoke test.
 
 See Cloudflare's [custom-domain](https://developers.cloudflare.com/pages/configuration/custom-domains/)
 and [Direct Upload](https://developers.cloudflare.com/pages/get-started/direct-upload/) documentation.
+
+## License
+
+[MIT](LICENSE)
