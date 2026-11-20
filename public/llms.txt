@@ -1,0 +1,16 @@
+# URL Inspector
+
+> Client-side tool to break down, edit, and rebuild URLs without losing encoding, parameter order, duplicate keys, empty values, or fragments.
+
+URL Inspector parses any URL using the RFC 3986 Appendix B grammar, lets users inspect and edit individual components or query parameters, and serializes back losslessly. Everything runs in the browser; inspected URLs never leave the device.
+
+## Pages
+
+- [Inspector](https://urlparts.dev/): Interactive URL tokenizer, component editor, query parameter table, and diagnostics.
+- [FAQ](https://urlparts.dev/faq): Answers on URL syntax, percent-encoding, query parameters, and privacy.
+- [Sitemap](https://urlparts.dev/sitemap.xml): XML sitemap of all top-level pages.
+
+## Links
+
+- [Source code](https://github.com/themkvz/url-inspector): Open-source repository.
+- [Author](https://themkvz.com): Built with AI by themkvz.
