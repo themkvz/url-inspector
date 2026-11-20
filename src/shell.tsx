@@ -34,6 +34,11 @@ export function Shell({ current, children }: ShellProps) {
             </li>
           </ul>
         </nav>
+        <p>
+          <small>
+            Built with 🤖 by <a href="https://themkvz.com">themkvz</a>
+          </small>
+        </p>
       </footer>
     </>
   )

@@ -15,6 +15,7 @@ beforeAll(async () => {
 const DOCUMENTATION_HOSTS = ['datatracker.ietf.org', 'www.rfc-editor.org', 'url.spec.whatwg.org']
 // The app's own canonical origin, named by self-referential discoverability metadata.
 const OWN_HOST = 'urlparts.dev'
+const AUTHOR_HOST = 'themkvz.com'
 const OPENPANEL_HOST = 'openpanel.themkvz.com'
 const OPENPANEL_API_URL = `https://${OPENPANEL_HOST}/api`
 const OPENPANEL_SCRIPT_URL = `https://${OPENPANEL_HOST}/op1.js`
@@ -34,6 +35,7 @@ const IDENTIFIER_HOSTS = ['www.w3.org', 'schema.org']
 const ALLOWED_HOSTS = new Set([
   ...DOCUMENTATION_HOSTS,
   OWN_HOST,
+  AUTHOR_HOST,
   OPENPANEL_HOST,
   ...IDENTIFIER_HOSTS,
 ])
