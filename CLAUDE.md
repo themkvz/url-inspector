@@ -18,7 +18,7 @@ Hard constraints (apply to every change):
 
 Bun is the single tool: package manager, dev server, bundler, and test runner.
 
-- Runtime: Preact + `@preact/signals`, Pico CSS (all bundled, self-hosted, no CDN).
+- Runtime: Preact + `@preact/signals`, curated Pico CSS subset in `src/styles/pico.css` (all bundled, self-hosted, no CDN).
 - Dev tooling: TypeScript (strict), Biome (lint + format), lefthook (pre-commit runs Biome + `tsc --noEmit`).
 - Layout: `index.html` entry → `src/main.tsx` (mounts) → `src/app.tsx` (shell). Path alias `@/*` → `src/*`.
 

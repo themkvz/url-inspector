@@ -1,0 +1,1015 @@
+/* Curated subset of Pico CSS v2.1.1 (blue theme), MIT License (picocss/pico).
+   Only tokens, rules, and light/dark system themes used by URL Inspector are included. */
+
+:root {
+  --pico-font-family-emoji:
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --pico-font-family-sans-serif:
+    system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue",
+    sans-serif, var(--pico-font-family-emoji);
+  --pico-font-family-monospace:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace,
+    var(--pico-font-family-emoji);
+  --pico-font-family: var(--pico-font-family-sans-serif);
+  --pico-line-height: 1.5;
+  --pico-font-weight: 400;
+  --pico-font-size: 100%;
+  --pico-text-underline-offset: 0.1rem;
+  --pico-border-radius: 0.25rem;
+  --pico-border-width: 0.0625rem;
+  --pico-outline-width: 0.125rem;
+  --pico-transition: 0.2s ease-in-out;
+  --pico-spacing: 1rem;
+  --pico-typography-spacing-vertical: 1rem;
+  --pico-block-spacing-vertical: var(--pico-spacing);
+  --pico-form-element-spacing-vertical: 0.75rem;
+  --pico-form-element-spacing-horizontal: 1rem;
+  --pico-group-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --pico-group-box-shadow-focus-with-button: 0 0 0 var(--pico-outline-width)
+    var(--pico-primary-focus);
+  --pico-group-box-shadow-focus-with-input: 0 0 0 0.0625rem var(--pico-form-element-border-color);
+  --pico-nav-element-spacing-vertical: 1rem;
+  --pico-nav-element-spacing-horizontal: 0.5rem;
+  --pico-nav-link-spacing-vertical: 0.5rem;
+  --pico-nav-link-spacing-horizontal: 0.5rem;
+  --pico-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(136, 145, 164)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+@media (min-width: 576px) {
+  :root {
+    --pico-font-size: 106.25%;
+  }
+}
+@media (min-width: 768px) {
+  :root {
+    --pico-font-size: 112.5%;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --pico-font-size: 118.75%;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --pico-font-size: 125%;
+  }
+}
+@media (min-width: 1536px) {
+  :root {
+    --pico-font-size: 131.25%;
+  }
+}
+
+a {
+  --pico-text-decoration: underline;
+}
+
+h1,
+h2 {
+  --pico-font-weight: 700;
+}
+
+h1 {
+  --pico-font-size: 2rem;
+  --pico-line-height: 1.125;
+  --pico-typography-spacing-top: 3rem;
+}
+
+h2 {
+  --pico-font-size: 1.75rem;
+  --pico-line-height: 1.15;
+  --pico-typography-spacing-top: 2.625rem;
+}
+
+code {
+  --pico-font-family: var(--pico-font-family-monospace);
+}
+
+input,
+textarea {
+  --pico-outline-width: 0.0625rem;
+}
+
+/* Color schemes */
+:root {
+  color-scheme: light;
+  --pico-background-color: #fff;
+  --pico-color: #373c44;
+  --pico-text-selection-color: rgba(116, 139, 248, 0.25);
+  --pico-muted-color: #646b79;
+  --pico-muted-border-color: rgb(231, 234, 239.5);
+  --pico-primary: #2060df;
+  --pico-primary-background: #2060df;
+  --pico-primary-border: var(--pico-primary-background);
+  --pico-primary-underline: rgba(32, 96, 223, 0.5);
+  --pico-primary-hover: #184eb8;
+  --pico-primary-hover-background: #1d59d0;
+  --pico-primary-hover-border: var(--pico-primary-hover-background);
+  --pico-primary-hover-underline: var(--pico-primary-hover);
+  --pico-primary-focus: rgba(116, 139, 248, 0.5);
+  --pico-primary-inverse: #fff;
+  --pico-secondary: #5d6b89;
+  --pico-secondary-background: #525f7a;
+  --pico-secondary-border: var(--pico-secondary-background);
+  --pico-secondary-underline: rgba(93, 107, 137, 0.5);
+  --pico-secondary-hover: #48536b;
+  --pico-secondary-hover-background: #48536b;
+  --pico-secondary-hover-border: var(--pico-secondary-hover-background);
+  --pico-secondary-hover-underline: var(--pico-secondary-hover);
+  --pico-secondary-focus: rgba(93, 107, 137, 0.25);
+  --pico-secondary-inverse: #fff;
+  --pico-contrast: #181c25;
+  --pico-contrast-background: #181c25;
+  --pico-contrast-border: var(--pico-contrast-background);
+  --pico-contrast-underline: rgba(24, 28, 37, 0.5);
+  --pico-contrast-hover: #000;
+  --pico-contrast-hover-background: #000;
+  --pico-contrast-hover-border: var(--pico-contrast-hover-background);
+  --pico-contrast-hover-underline: var(--pico-secondary-hover);
+  --pico-contrast-focus: rgba(93, 107, 137, 0.25);
+  --pico-contrast-inverse: #fff;
+  --pico-h1-color: #2d3138;
+  --pico-h2-color: #373c44;
+  --pico-del-color: rgb(136, 56.5, 53);
+  --pico-button-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --pico-button-hover-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  --pico-table-border-color: var(--pico-muted-border-color);
+  --pico-code-background-color: rgb(243, 244.5, 246.75);
+  --pico-code-color: #646b79;
+  --pico-form-element-background-color: rgb(251, 251.5, 252.25);
+  --pico-form-element-selected-background-color: #dfe3eb;
+  --pico-form-element-border-color: #cfd5e2;
+  --pico-form-element-color: #23262c;
+  --pico-form-element-placeholder-color: var(--pico-muted-color);
+  --pico-form-element-active-background-color: #fff;
+  --pico-form-element-active-border-color: var(--pico-primary-border);
+  --pico-form-element-focus-color: var(--pico-primary-border);
+  --pico-form-element-disabled-opacity: 0.5;
+  --pico-accordion-border-color: var(--pico-muted-border-color);
+  --pico-accordion-active-summary-color: var(--pico-primary-hover);
+  --pico-accordion-close-summary-color: var(--pico-color);
+  --pico-accordion-open-summary-color: var(--pico-muted-color);
+  --pico-tooltip-background-color: var(--pico-contrast-background);
+  --pico-tooltip-color: var(--pico-contrast-inverse);
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --pico-background-color: rgb(19, 22.5, 30.5);
+    --pico-color: #c2c7d0;
+    --pico-text-selection-color: rgba(137, 153, 249, 0.1875);
+    --pico-muted-color: #7b8495;
+    --pico-muted-border-color: #202632;
+    --pico-primary: #8999f9;
+    --pico-primary-background: #2060df;
+    --pico-primary-border: var(--pico-primary-background);
+    --pico-primary-underline: rgba(137, 153, 249, 0.5);
+    --pico-primary-hover: #aeb5fb;
+    --pico-primary-hover-background: #3c71f7;
+    --pico-primary-hover-border: var(--pico-primary-hover-background);
+    --pico-primary-hover-underline: var(--pico-primary-hover);
+    --pico-primary-focus: rgba(137, 153, 249, 0.375);
+    --pico-primary-inverse: #fff;
+    --pico-secondary: #969eaf;
+    --pico-secondary-background: #525f7a;
+    --pico-secondary-border: var(--pico-secondary-background);
+    --pico-secondary-underline: rgba(150, 158, 175, 0.5);
+    --pico-secondary-hover: #b3b9c5;
+    --pico-secondary-hover-background: #5d6b89;
+    --pico-secondary-hover-border: var(--pico-secondary-hover-background);
+    --pico-secondary-hover-underline: var(--pico-secondary-hover);
+    --pico-secondary-focus: rgba(144, 158, 190, 0.25);
+    --pico-secondary-inverse: #fff;
+    --pico-contrast: #dfe3eb;
+    --pico-contrast-background: #eff1f4;
+    --pico-contrast-border: var(--pico-contrast-background);
+    --pico-contrast-underline: rgba(223, 227, 235, 0.5);
+    --pico-contrast-hover: #fff;
+    --pico-contrast-hover-background: #fff;
+    --pico-contrast-hover-border: var(--pico-contrast-hover-background);
+    --pico-contrast-hover-underline: var(--pico-contrast-hover);
+    --pico-contrast-focus: rgba(207, 213, 226, 0.25);
+    --pico-contrast-inverse: #000;
+    --pico-h1-color: #f0f1f3;
+    --pico-h2-color: #e0e3e7;
+    --pico-del-color: rgb(205.5, 126, 123);
+    --pico-button-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    --pico-button-hover-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    --pico-table-border-color: var(--pico-muted-border-color);
+    --pico-code-background-color: rgb(26, 30.5, 40.25);
+    --pico-code-color: #8891a4;
+    --pico-form-element-background-color: rgb(28, 33, 43.5);
+    --pico-form-element-selected-background-color: #2a3140;
+    --pico-form-element-border-color: #2a3140;
+    --pico-form-element-color: #e0e3e7;
+    --pico-form-element-placeholder-color: #8891a4;
+    --pico-form-element-active-background-color: rgb(26, 30.5, 40.25);
+    --pico-form-element-active-border-color: var(--pico-primary-border);
+    --pico-form-element-focus-color: var(--pico-primary-border);
+    --pico-form-element-disabled-opacity: 0.5;
+    --pico-accordion-border-color: var(--pico-muted-border-color);
+    --pico-accordion-active-summary-color: var(--pico-primary-hover);
+    --pico-accordion-close-summary-color: var(--pico-color);
+    --pico-accordion-open-summary-color: var(--pico-muted-color);
+    --pico-tooltip-background-color: var(--pico-contrast-background);
+    --pico-tooltip-color: var(--pico-contrast-inverse);
+  }
+}
+
+/* Document */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+}
+
+a,
+button,
+input,
+label,
+summary,
+textarea {
+  -ms-touch-action: manipulation;
+}
+
+::before,
+::after {
+  text-decoration: inherit;
+  vertical-align: inherit;
+}
+
+:where(:root) {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background-color: var(--pico-background-color);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+  font-size: var(--pico-font-size);
+  line-height: var(--pico-line-height);
+  font-family: var(--pico-font-family);
+  text-underline-offset: var(--pico-text-underline-offset);
+  text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+}
+
+/* Landmarks */
+body {
+  width: 100%;
+  margin: 0;
+}
+
+main {
+  display: block;
+}
+
+body > header,
+body > main,
+body > footer {
+  padding-block: var(--pico-block-spacing-vertical);
+}
+
+/* Section */
+section {
+  margin-bottom: var(--pico-block-spacing-vertical);
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--pico-spacing);
+  padding-left: var(--pico-spacing);
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 510px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 700px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 950px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1450px;
+  }
+}
+
+/* Typography */
+p,
+table,
+ul {
+  margin-top: 0;
+  margin-bottom: var(--pico-typography-spacing-vertical);
+  color: var(--pico-color);
+  font-style: normal;
+  font-weight: var(--pico-font-weight);
+}
+
+h1,
+h2 {
+  margin-top: 0;
+  margin-bottom: var(--pico-typography-spacing-vertical);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+  font-size: var(--pico-font-size);
+  line-height: var(--pico-line-height);
+  font-family: var(--pico-font-family);
+}
+
+h1 {
+  --pico-color: var(--pico-h1-color);
+}
+
+h2 {
+  --pico-color: var(--pico-h2-color);
+}
+
+p {
+  margin-bottom: var(--pico-typography-spacing-vertical);
+}
+
+hgroup {
+  margin-bottom: var(--pico-typography-spacing-vertical);
+}
+
+hgroup > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+hgroup > *:not(:first-child):last-child {
+  --pico-color: var(--pico-muted-color);
+  --pico-font-weight: unset;
+  font-size: 1rem;
+}
+
+ul li {
+  margin-bottom: calc(var(--pico-typography-spacing-vertical) * 0.25);
+  list-style: square;
+}
+
+::-moz-selection {
+  background-color: var(--pico-text-selection-color);
+}
+
+::selection {
+  background-color: var(--pico-text-selection-color);
+}
+
+/* Link */
+a {
+  --pico-color: var(--pico-primary);
+  --pico-background-color: transparent;
+  --pico-underline: var(--pico-primary-underline);
+  outline: 0;
+  background-color: var(--pico-background-color);
+  color: var(--pico-color);
+  text-decoration: var(--pico-text-decoration);
+  text-decoration-color: var(--pico-underline);
+  text-underline-offset: 0.125em;
+  transition:
+    background-color var(--pico-transition),
+    color var(--pico-transition),
+    text-decoration var(--pico-transition),
+    box-shadow var(--pico-transition);
+}
+
+a[aria-current]:not([aria-current="false"]),
+a:hover,
+a:active,
+a:focus {
+  --pico-color: var(--pico-primary-hover);
+  --pico-underline: var(--pico-primary-hover-underline);
+  --pico-text-decoration: underline;
+}
+
+a:focus-visible {
+  box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+}
+
+/* Button */
+button {
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  text-transform: none;
+}
+
+button,
+[type="button"] {
+  -webkit-appearance: button;
+}
+
+button,
+[role="button"] {
+  --pico-background-color: var(--pico-primary-background);
+  --pico-border-color: var(--pico-primary-border);
+  --pico-color: var(--pico-primary-inverse);
+  --pico-box-shadow: var(--pico-button-box-shadow, 0 0 0 rgba(0, 0, 0, 0));
+  padding: var(--pico-form-element-spacing-vertical) var(--pico-form-element-spacing-horizontal);
+  border: var(--pico-border-width) solid var(--pico-border-color);
+  border-radius: var(--pico-border-radius);
+  outline: 0;
+  background-color: var(--pico-background-color);
+  box-shadow: var(--pico-box-shadow);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+  font-size: 1rem;
+  line-height: var(--pico-line-height);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  transition:
+    background-color var(--pico-transition),
+    border-color var(--pico-transition),
+    color var(--pico-transition),
+    box-shadow var(--pico-transition);
+}
+
+button:hover,
+button:active,
+button:focus,
+[role="button"]:hover,
+[role="button"]:active,
+[role="button"]:focus {
+  --pico-background-color: var(--pico-primary-hover-background);
+  --pico-border-color: var(--pico-primary-hover-border);
+  --pico-box-shadow: var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0));
+  --pico-color: var(--pico-primary-inverse);
+}
+
+button:focus,
+[role="button"]:focus {
+  --pico-box-shadow:
+    var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)),
+    0 0 0 var(--pico-outline-width) var(--pico-primary-focus);
+}
+
+[type="button"] {
+  margin-bottom: var(--pico-spacing);
+}
+
+button.secondary,
+[role="button"].secondary {
+  --pico-background-color: var(--pico-secondary-background);
+  --pico-border-color: var(--pico-secondary-border);
+  --pico-color: var(--pico-secondary-inverse);
+  cursor: pointer;
+}
+
+button.secondary:hover,
+button.secondary:active,
+button.secondary:focus,
+[role="button"].secondary:hover,
+[role="button"].secondary:active,
+[role="button"].secondary:focus {
+  --pico-background-color: var(--pico-secondary-hover-background);
+  --pico-border-color: var(--pico-secondary-hover-border);
+  --pico-color: var(--pico-secondary-inverse);
+}
+
+button.secondary:focus,
+[role="button"].secondary:focus {
+  --pico-box-shadow:
+    var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)),
+    0 0 0 var(--pico-outline-width) var(--pico-secondary-focus);
+}
+
+button.contrast,
+[role="button"].contrast {
+  --pico-background-color: var(--pico-contrast-background);
+  --pico-border-color: var(--pico-contrast-border);
+  --pico-color: var(--pico-contrast-inverse);
+}
+
+button.contrast:hover,
+button.contrast:active,
+button.contrast:focus,
+[role="button"].contrast:hover,
+[role="button"].contrast:active,
+[role="button"].contrast:focus {
+  --pico-background-color: var(--pico-contrast-hover-background);
+  --pico-border-color: var(--pico-contrast-hover-border);
+  --pico-color: var(--pico-contrast-inverse);
+}
+
+button.contrast:focus,
+[role="button"].contrast:focus {
+  --pico-box-shadow:
+    var(--pico-button-hover-box-shadow, 0 0 0 rgba(0, 0, 0, 0)),
+    0 0 0 var(--pico-outline-width) var(--pico-contrast-focus);
+}
+
+button.outline,
+[role="button"].outline {
+  --pico-background-color: transparent;
+  --pico-color: var(--pico-primary);
+  --pico-border-color: var(--pico-primary);
+}
+
+button.outline:hover,
+button.outline:active,
+button.outline:focus,
+[role="button"].outline:hover,
+[role="button"].outline:active,
+[role="button"].outline:focus {
+  --pico-background-color: transparent;
+  --pico-color: var(--pico-primary-hover);
+  --pico-border-color: var(--pico-primary-hover);
+}
+
+button.outline.secondary,
+[role="button"].outline.secondary {
+  --pico-color: var(--pico-secondary);
+  --pico-border-color: var(--pico-secondary);
+}
+
+button.outline.secondary:hover,
+button.outline.secondary:active,
+button.outline.secondary:focus,
+[role="button"].outline.secondary:hover,
+[role="button"].outline.secondary:active,
+[role="button"].outline.secondary:focus {
+  --pico-color: var(--pico-secondary-hover);
+  --pico-border-color: var(--pico-secondary-hover);
+}
+
+button.outline.contrast,
+[role="button"].outline.contrast {
+  --pico-color: var(--pico-contrast);
+  --pico-border-color: var(--pico-contrast);
+}
+
+button.outline.contrast:hover,
+button.outline.contrast:active,
+button.outline.contrast:focus,
+[role="button"].outline.contrast:hover,
+[role="button"].outline.contrast:active,
+[role="button"].outline.contrast:focus {
+  --pico-color: var(--pico-contrast-hover);
+  --pico-border-color: var(--pico-contrast-hover);
+}
+
+button[disabled],
+[role="button"][disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Table */
+:where(table) {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  text-indent: 0;
+}
+
+th,
+td {
+  padding: calc(var(--pico-spacing) / 2) var(--pico-spacing);
+  border-bottom: var(--pico-border-width) solid var(--pico-table-border-color);
+  background-color: var(--pico-background-color);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+  text-align: start;
+}
+
+thead th,
+thead td,
+tfoot th,
+tfoot td {
+  --pico-font-weight: 600;
+  --pico-border-width: 0.1875rem;
+}
+
+tfoot th,
+tfoot td {
+  border-top: var(--pico-border-width) solid var(--pico-table-border-color);
+  border-bottom: 0;
+}
+
+/* Code */
+code {
+  display: inline-block;
+  padding: 0.375rem;
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-code-background-color);
+  color: var(--pico-code-color);
+  font-weight: var(--pico-font-weight);
+  font-size: 0.875em;
+  line-height: initial;
+  font-family: var(--pico-font-family);
+}
+
+/* Basics form elements */
+input,
+textarea {
+  margin: 0;
+  font-size: 1rem;
+  line-height: var(--pico-line-height);
+  font-family: inherit;
+  letter-spacing: inherit;
+}
+
+input {
+  overflow: visible;
+  height: calc(
+    1rem *
+    var(--pico-line-height) +
+    var(--pico-form-element-spacing-vertical) *
+    2 +
+    var(--pico-border-width) *
+    2
+  );
+}
+
+textarea {
+  display: block;
+  overflow: auto;
+  resize: vertical;
+}
+
+fieldset {
+  width: 100%;
+  margin: 0;
+  margin-bottom: var(--pico-spacing);
+  padding: 0;
+  border: 0;
+}
+
+label {
+  display: block;
+  margin-bottom: calc(var(--pico-spacing) * 0.375);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-bottom: var(--pico-spacing);
+  padding: var(--pico-form-element-spacing-vertical) var(--pico-form-element-spacing-horizontal);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  --pico-background-color: var(--pico-form-element-background-color);
+  --pico-border-color: var(--pico-form-element-border-color);
+  --pico-color: var(--pico-form-element-color);
+  --pico-box-shadow: none;
+  border: var(--pico-border-width) solid var(--pico-border-color);
+  border-radius: var(--pico-border-radius);
+  outline: 0;
+  background-color: var(--pico-background-color);
+  box-shadow: var(--pico-box-shadow);
+  color: var(--pico-color);
+  font-weight: var(--pico-font-weight);
+  transition:
+    background-color var(--pico-transition),
+    border-color var(--pico-transition),
+    color var(--pico-transition),
+    box-shadow var(--pico-transition);
+}
+
+input:not([readonly]):active,
+input:not([readonly]):focus,
+textarea:not([readonly]):active,
+textarea:not([readonly]):focus {
+  --pico-background-color: var(--pico-form-element-active-background-color);
+  --pico-border-color: var(--pico-form-element-active-border-color);
+}
+
+input:not([readonly]):focus,
+textarea:not([readonly]):focus {
+  --pico-box-shadow: 0 0 0 var(--pico-outline-width) var(--pico-form-element-focus-color);
+}
+
+input::placeholder,
+input::-webkit-input-placeholder,
+textarea::placeholder,
+textarea::-webkit-input-placeholder {
+  color: var(--pico-form-element-placeholder-color);
+  opacity: 1;
+}
+
+label > input {
+  margin-top: calc(var(--pico-spacing) * 0.25);
+}
+
+/* Accordion (<details>) */
+details {
+  display: block;
+  margin-bottom: var(--pico-spacing);
+}
+
+details summary {
+  line-height: 1rem;
+  list-style-type: none;
+  cursor: pointer;
+  transition: color var(--pico-transition);
+}
+
+details summary:not([role]) {
+  color: var(--pico-accordion-close-summary-color);
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  display: none;
+}
+
+details summary::-moz-list-bullet {
+  list-style-type: none;
+}
+
+details summary::after {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin-inline-start: calc(var(--pico-spacing, 1rem) * 0.5);
+  float: right;
+  transform: rotate(-90deg);
+  background-image: var(--pico-icon-chevron);
+  background-position: right center;
+  background-size: 1rem auto;
+  background-repeat: no-repeat;
+  content: "";
+  transition: transform var(--pico-transition);
+}
+
+details summary:focus {
+  outline: 0;
+}
+
+details summary[role="button"] {
+  width: 100%;
+  text-align: left;
+}
+
+details summary[role="button"]::after {
+  height: calc(1rem * var(--pico-line-height, 1.5));
+}
+
+details[open] > summary {
+  margin-bottom: var(--pico-spacing);
+}
+
+details[open] > summary::after {
+  transform: rotate(0);
+}
+
+/* Group ([role="group"]) */
+[role="group"] {
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+  margin-bottom: var(--pico-spacing);
+  border-radius: var(--pico-border-radius);
+  box-shadow: var(--pico-group-box-shadow, 0 0 0 rgba(0, 0, 0, 0));
+  vertical-align: middle;
+  transition: box-shadow var(--pico-transition);
+}
+
+[role="group"] > *,
+[role="group"] input {
+  position: relative;
+  flex: 1 1 auto;
+  margin-bottom: 0;
+}
+
+[role="group"] > *:not(:first-child),
+[role="group"] input:not(:first-child) {
+  margin-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+[role="group"] > *:not(:last-child),
+[role="group"] input:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+[role="group"] > *:focus,
+[role="group"] input:focus {
+  z-index: 2;
+}
+
+[role="group"] button:not(:first-child),
+[role="group"] [role="button"]:not(:first-child),
+[role="group"] input:not(:first-child) {
+  margin-left: calc(var(--pico-border-width) * -1);
+}
+
+[role="group"] button,
+[role="group"] [role="button"] {
+  --pico-form-element-spacing-horizontal: 2rem;
+  width: auto;
+}
+
+@supports selector(:has(*)) {
+  [role="group"]:has(button.secondary:focus),
+  [role="group"]:has([role="button"].secondary:focus) {
+    --pico-group-box-shadow-focus-with-button: 0 0 0 var(--pico-outline-width)
+      var(--pico-secondary-focus);
+  }
+  [role="group"]:has(button.contrast:focus),
+  [role="group"]:has([role="button"].contrast:focus) {
+    --pico-group-box-shadow-focus-with-button: 0 0 0 var(--pico-outline-width)
+      var(--pico-contrast-focus);
+  }
+  [role="group"]:has(button:focus, [role="button"]:focus) {
+    --pico-group-box-shadow: var(--pico-group-box-shadow-focus-with-button);
+  }
+  [role="group"]:has(button:focus, [role="button"]:focus) input {
+    border-color: transparent;
+  }
+  [role="group"]:has(input:focus) {
+    --pico-group-box-shadow: var(--pico-group-box-shadow-focus-with-input);
+  }
+  [role="group"]:has(input:focus) button,
+  [role="group"]:has(input:focus) [role="button"] {
+    --pico-button-box-shadow: 0 0 0 var(--pico-border-width) var(--pico-primary-border);
+    --pico-button-hover-box-shadow: 0 0 0 var(--pico-border-width) var(--pico-primary-hover-border);
+  }
+  [role="group"] button:focus,
+  [role="group"] [role="button"]:focus {
+    box-shadow: none;
+  }
+}
+
+/* Nav */
+:where(nav li)::before {
+  float: left;
+  content: "\200B";
+}
+
+nav,
+nav ul {
+  display: flex;
+}
+
+nav {
+  justify-content: space-between;
+  overflow: visible;
+}
+
+nav ul {
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul:first-of-type {
+  margin-left: calc(var(--pico-nav-element-spacing-horizontal) * -1);
+}
+
+nav ul:last-of-type {
+  margin-right: calc(var(--pico-nav-element-spacing-horizontal) * -1);
+}
+
+nav li {
+  display: inline-block;
+  margin: 0;
+  padding: var(--pico-nav-element-spacing-vertical) var(--pico-nav-element-spacing-horizontal);
+}
+
+nav li a {
+  display: inline-block;
+  margin: calc(var(--pico-nav-link-spacing-vertical) * -1)
+    calc(var(--pico-nav-link-spacing-horizontal) * -1);
+  padding: var(--pico-nav-link-spacing-vertical) var(--pico-nav-link-spacing-horizontal);
+  border-radius: var(--pico-border-radius);
+}
+
+nav li a:not(:hover) {
+  text-decoration: none;
+}
+
+/* Tooltip ([data-tooltip]) */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::before,
+[data-tooltip]::after {
+  display: block;
+  z-index: 99;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  padding: 0.25rem 0.5rem;
+  overflow: hidden;
+  transform: translate(-50%, -0.25rem);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-tooltip-background-color);
+  content: attr(data-tooltip);
+  color: var(--pico-tooltip-color);
+  font-style: normal;
+  font-weight: var(--pico-font-weight);
+  font-size: 0.875rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-tooltip]::after {
+  padding: 0;
+  transform: translate(-50%, 0rem);
+  border-top: 0.3rem solid;
+  border-right: 0.3rem solid transparent;
+  border-left: 0.3rem solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  content: "";
+  color: var(--pico-tooltip-background-color);
+}
+
+[data-tooltip]:focus::before,
+[data-tooltip]:focus::after,
+[data-tooltip]:hover::before,
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-tooltip]:focus::before,
+  [data-tooltip]:focus::after,
+  [data-tooltip]:hover::before,
+  [data-tooltip]:hover::after {
+    --pico-tooltip-slide-to: translate(-50%, -0.25rem);
+    transform: translate(-50%, 0.75rem);
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+    animation-name: tooltip-slide;
+    opacity: 0;
+  }
+  [data-tooltip]:focus::after,
+  [data-tooltip]:hover::after {
+    --pico-tooltip-caret-slide-to: translate(-50%, 0rem);
+    transform: translate(-50%, -0.25rem);
+    animation-name: tooltip-caret-slide;
+  }
+}
+
+@keyframes tooltip-slide {
+  to {
+    transform: var(--pico-tooltip-slide-to);
+    opacity: 1;
+  }
+}
+
+@keyframes tooltip-caret-slide {
+  50% {
+    opacity: 0;
+  }
+  to {
+    transform: var(--pico-tooltip-caret-slide-to);
+    opacity: 1;
+  }
+}
+
+/* Accessibility & User interaction */
+[aria-disabled="true"],
+[disabled] {
+  cursor: not-allowed;
+}
+
+/* Reduce Motion Features */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pico-transition: 0s;
+  }
+}

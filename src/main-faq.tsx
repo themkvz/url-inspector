@@ -1,4 +1,4 @@
-import '@picocss/pico/css/pico.blue.min.css'
+import '@/styles/pico.css'
 import '@/styles/app.css'
 import { hydrate } from 'preact'
 import { Faq } from '@/faq'

@@ -35,7 +35,7 @@ unexpected external URLs.
 
 ## Architecture
 
-- **Stack:** Preact, `@preact/signals`, and Pico CSS, all bundled into a static build by Bun. No CDN.
+- **Stack:** Preact, `@preact/signals`, and a curated Pico CSS subset (`src/styles/pico.css`), all bundled into a static build by Bun. No CDN.
 - **`src/url/`** is a framework-free URL core. `tokenize` splits a URL with the
   [RFC 3986 Appendix B](https://www.rfc-editor.org/rfc/rfc3986#appendix-B) regex and keeps every part
   as a raw substring. It tracks absent (`null`) and empty (`""`) parts separately, so
