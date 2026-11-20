@@ -55,7 +55,7 @@ export const FAQ_ITEMS: FaqItem[] = [
 
 // The FAQ page's own canonical URL - the single literal both this module's JSON-LD and
 // faq.html's <link rel="canonical">/og:url/sitemap entry must agree with.
-export const FAQ_URL = 'https://url.themkvz.com/faq'
+export const FAQ_URL = 'https://urlparts.dev/faq'
 
 export function buildFaqJsonLd() {
   return {

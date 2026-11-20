@@ -28,7 +28,7 @@ re-creating it.
 
 ### Requirement: Canonical identity metadata
 Each top-level page's document SHALL declare its language, a descriptive `title` and `meta description`
-distinct to that page, a canonical link pointing at that page's own URL under `https://url.themkvz.com/`,
+distinct to that page, a canonical link pointing at that page's own URL under `https://urlparts.dev/`,
 and crawler directives permitting indexing and link following.
 
 #### Scenario: Head metadata present
@@ -90,7 +90,7 @@ The build output SHALL include a `robots.txt` that allows crawling and points at
 
 #### Scenario: robots.txt served
 - **WHEN** `/robots.txt` is requested from the build output
-- **THEN** it allows all user agents and declares `Sitemap: https://url.themkvz.com/sitemap.xml`
+- **THEN** it allows all user agents and declares `Sitemap: https://urlparts.dev/sitemap.xml`
 
 #### Scenario: sitemap.xml served
 - **WHEN** `/sitemap.xml` is requested from the build output
@@ -118,11 +118,11 @@ shared across every top-level page and referenced from each page's head.
 ### Requirement: Discoverability assets are self-hosted
 Every icon, image, manifest, and stylesheet referenced by the discoverability metadata MUST be served
 from the application's own origin. Absolute URLs in metadata MUST only ever name the canonical origin
-`https://url.themkvz.com`, and MUST NOT cause the browser to fetch from any other origin.
+`https://urlparts.dev`, and MUST NOT cause the browser to fetch from any other origin.
 
 #### Scenario: No third-party asset hosts
 - **WHEN** the metadata added by this capability is scanned for absolute URLs
-- **THEN** every one has the host `url.themkvz.com`
+- **THEN** every one has the host `urlparts.dev`
 
 #### Scenario: Loading the page fetches only same-origin resources
 - **WHEN** the built page is loaded with network inspection enabled

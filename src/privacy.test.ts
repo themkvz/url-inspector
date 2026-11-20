@@ -14,7 +14,7 @@ beforeAll(async () => {
 // Documentation hosts allowed for user-initiated navigation links, per the app-shell spec.
 const DOCUMENTATION_HOSTS = ['datatracker.ietf.org', 'www.rfc-editor.org', 'url.spec.whatwg.org']
 // The app's own canonical origin, named by self-referential discoverability metadata.
-const OWN_HOST = 'url.themkvz.com'
+const OWN_HOST = 'urlparts.dev'
 const OPENPANEL_HOST = 'openpanel.themkvz.com'
 const OPENPANEL_API_URL = `https://${OPENPANEL_HOST}/api`
 const OPENPANEL_SCRIPT_URL = `https://${OPENPANEL_HOST}/op1.js`

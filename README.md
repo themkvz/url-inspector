@@ -2,7 +2,7 @@
 
 A privacy-conscious URL inspector and editor that parses and rebuilds URLs directly in the browser.
 
-**Live:** <https://url.themkvz.com/>
+**Live:** <https://urlparts.dev/>
 
 For developers who debug redirects, OAuth callbacks, tracking links, signed URLs, or API requests and
 need to see exactly what a URL contains, change one part, and copy it back without anything else
@@ -124,8 +124,8 @@ Open the assigned `*.pages.dev` URL and confirm the page renders and a URL can b
 ### Custom domain
 
 In Cloudflare **Workers & Pages**, open `url-inspector` → **Custom domains** → **Set up a domain** and
-add `url.themkvz.com`. Follow Cloudflare's DNS instructions, then wait until the domain is active before
-announcing it. The configured domain must remain `https://url.themkvz.com/`, which is the canonical URL
+add `urlparts.dev`. Follow Cloudflare's DNS instructions, then wait until the domain is active before
+announcing it. The configured domain must remain `https://urlparts.dev/`, which is the canonical URL
 in the app's metadata, `robots.txt`, and sitemap.
 
 ### Later releases and rollback
@@ -140,7 +140,7 @@ git switch main
 bun run deploy
 ```
 
-Smoke-test `https://url.themkvz.com/`: it should return successfully, show the `URL Inspector` heading
+Smoke-test `https://urlparts.dev/`: it should return successfully, show the `URL Inspector` heading
 before interaction, load its static assets, and edit a URL normally. Browser network activity should be
 same-origin except for `https://openpanel.themkvz.com/op1.js` and its `/api` event requests, and the
 browser console should show no Content Security Policy violations.
@@ -148,8 +148,8 @@ browser console should show no Content Security Policy violations.
 Check the response headers and the not-found status:
 
 ```sh
-curl -sI https://url.themkvz.com/ | grep -iE '^(content-security-policy|x-content-type-options|referrer-policy):'
-curl -sI https://url.themkvz.com/missing/page | head -1 # HTTP/2 404
+curl -sI https://urlparts.dev/ | grep -iE '^(content-security-policy|x-content-type-options|referrer-policy):'
+curl -sI https://urlparts.dev/missing/page | head -1 # HTTP/2 404
 ```
 
 The first command should print all three headers. `dist/_headers` lists the expected values.

@@ -5,7 +5,7 @@ import { $ } from 'bun'
 import { Window } from 'happy-dom'
 import { FAQ_ITEMS, FAQ_URL } from '@/faq-content'
 
-const HOME_URL = 'https://url.themkvz.com/'
+const HOME_URL = 'https://urlparts.dev/'
 const SITE_NAME = 'URL Inspector'
 const rootDir = join(import.meta.dir, '..')
 const distDir = join(rootDir, 'dist')
@@ -182,7 +182,7 @@ describe('discoverability', () => {
     expect(sitemap.match(/<loc>/g)).toHaveLength(PAGES.length)
 
     expect(readFileSync(join(distDir, 'robots.txt'), 'utf8')).toContain(
-      'Sitemap: https://url.themkvz.com/sitemap.xml',
+      'Sitemap: https://urlparts.dev/sitemap.xml',
     )
   })
 

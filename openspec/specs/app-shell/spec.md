@@ -22,7 +22,7 @@ these explicit cases:
 1. User-initiated navigation links to allowlisted official documentation hosts
    (`datatracker.ietf.org`, `www.rfc-editor.org`, `url.spec.whatwg.org`). These MUST open in a new tab
    with `rel="noreferrer noopener"`, and MUST NOT be fetched or prefetched by the application.
-2. The application's canonical origin (`url.themkvz.com`) named in self-referential discoverability
+2. The application's canonical origin (`urlparts.dev`) named in self-referential discoverability
    metadata.
 3. The first-party analytics origin (`openpanel.themkvz.com`), limited to loading `/op1.js` and
    sending anonymous events to `/api`.
@@ -47,7 +47,7 @@ The application MUST use OpenPanel only for anonymous screen-view, outgoing-link
 attribute, and the following interaction events: `url_copied`, `example_loaded`, `url_part_opened`,
 `query_parameter_added`, `query_parameter_removed`, and `query_parameter_moved`. Every event MUST
 include the global properties `app: "url-inspector"` and an `environment` that is `production` on
-`url.themkvz.com` and `development` elsewhere. It MUST NOT enable session replay, set analytics
+`urlparts.dev` and `development` elsewhere. It MUST NOT enable session replay, set analytics
 cookies, store persistent visitor identifiers, transmit user-entered URL values, or persist those
 values in localStorage, sessionStorage, IndexedDB, or cookies.
 

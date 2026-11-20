@@ -6,7 +6,7 @@ and how URL Inspector works, published to grow the site's indexable, search-rele
 ## Requirements
 
 ### Requirement: FAQ page route and prerendering
-The build SHALL produce a static page at canonical URL `https://url.themkvz.com/faq`, prerendered the
+The build SHALL produce a static page at canonical URL `https://urlparts.dev/faq`, prerendered the
 same way the home page is, so its content is present in the served HTML before JavaScript runs.
 
 #### Scenario: FAQ page contains rendered content
