@@ -1,10 +1,10 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for AI coding agents working in this repository.
 
 ## Project
 
-URL Inspector — break down, edit, and rebuild URLs without losing the details.
+URL Inspector (`https://urlparts.dev/`) — break down, edit, and rebuild URLs without losing the details.
 
 Hard constraints (apply to every change):
 
@@ -44,8 +44,13 @@ Bun is the single tool: package manager, dev server, bundler, and test runner.
 
 - `bun run dev` — dev server with HMR at `http://localhost:3000`.
 - `bun run build` — static production build to `dist/`.
-- `bun test` — runs tests, including the privacy check that scans `dist/` for absolute URLs outside the documentation, canonical, identifier, and approved OpenPanel allowlists and any protocol-relative resource references.
-- `bun run check` — Biome check + `tsc --noEmit`.
+- `bun test` — runs tests, including the privacy check that scans `dist/` for absolute URLs outside the documentation, canonical, author, identifier, and approved OpenPanel allowlists and any protocol-relative resource references.
+- `bun run lint` — Biome check.
+- `bun run check` — `bun run lint` + `bun run typecheck` (`tsc --noEmit`).
+
+## Issue Tracker
+
+Issues are tracked in **Orbit** under project `URL Inspector` (`URL`).
 
 ## Workflow: OpenSpec (spec-driven development)
 
@@ -58,4 +63,4 @@ Work is driven by OpenSpec (`openspec` CLI is installed globally; schema `spec-d
 
 Lifecycle: propose → apply (implement tasks) → sync specs → archive. Implement only what the active change's tasks specify; don't add scope outside the change.
 
-Workflow skills live in `.agents/skills/openspec-*` (propose, explore, apply-change, update-change, sync-specs, archive-change). They are generated for Codex (`.openspec-target`), so Claude Code does not auto-load them — read the relevant `SKILL.md` directly when running an OpenSpec step.
+Workflow skills live in `.agents/skills/openspec-*` (propose, explore, apply-change, update-change, sync-specs, archive-change). Read the relevant `SKILL.md` directly when running an OpenSpec step.
